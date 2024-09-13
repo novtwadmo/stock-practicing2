@@ -125,7 +125,7 @@
 </html>-->
 
 
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -187,4 +187,67 @@
         </tbody>
     </table>
 </body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Today's Top 5 Stocks by Volume</h1>
+    <table id="stock-table">
+        <thead>
+            <tr>
+                <th>Stock</th>
+                <th>Price</th>
+                <th>Change</th>
+                <th>Volume</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stock in top_5_stocks %}
+            <tr class="{% if stock.change > 0 %}up{% elif stock.change < 0 %}down{% else %}neutral{% endif %}">
+                <td>{{ stock.name }}</td>
+                <td>{{ stock.price }}</td>
+                <td>{{ stock.change }}</td>
+                <td>{{ stock.volume }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Check a Stock</h2>
+    <form method="POST">
+        <input type="text" name="stock_id" placeholder="Enter Stock Code" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if user_stock %}
+    <h3>Stock Information for {{ user_stock.name }}</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Stock</th>
+                <th>Price</th>
+                <th>Change</th>
+                <th>Volume</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="{% if user_stock.change > 0 %}up{% elif user_stock.change < 0 %}down{% else %}neutral{% endif %}">
+                <td>{{ user_stock.name }}</td>
+                <td>{{ user_stock.price }}</td>
+                <td>{{ user_stock.change }}</td>
+                <td>{{ user_stock.volume }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
+</body>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 </html>
+

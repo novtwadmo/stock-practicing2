@@ -95,7 +95,8 @@ def index():
 if __name__ == '__main__':
     app.run(debug=True)"""
 
-from flask import Flask, render_template
+#正確但超時
+"""from flask import Flask, render_template
 import twstock
 
 app = Flask(__name__)
@@ -125,5 +126,45 @@ def index():
     return render_template('index.html', stocks=top_10_stocks)
 
 if __name__ == '__main__':
+    app.run(debug=True)"""
+
+from flask import Flask, render_template, request
+import twstock
+
+app = Flask(__name__)
+
+# 取得前 5 名成交量最高的股票
+def get_top_5_stocks():
+    # 在這裡我們模擬成交量最高的5支股票
+    stock_data = [
+        {"name": "2330", "price": 600, "change": 5.5, "volume": 100000},
+        {"name": "2317", "price": 120, "change": -3.2, "volume": 90000},
+        {"name": "2303", "price": 50, "change": 0, "volume": 85000},
+        {"name": "2882", "price": 40, "change": 1.2, "volume": 82000},
+        {"name": "2454", "price": 1000, "change": 10.0, "volume": 80000},
+    ]
+    return stock_data
+
+# 查詢使用者輸入的股票
+def get_user_stock(stock_id):
+    stock = twstock.Stock(stock_id)
+    price = stock.price[-1]
+    change = stock.price[-1] - stock.price[-2]  # 漲跌幅
+    stock_data = {"name": stock.sid, "price": price, "change": change, "volume": stock.capacity[-1]}
+    return stock_data
+
+@app.route("/", methods=["GET", "POST"])
+def index():
+    top_5_stocks = get_top_5_stocks()
+    user_stock = None
+    if request.method == "POST":
+        stock_id = request.form["stock_id"]
+        if stock_id:
+            user_stock = get_user_stock(stock_id)
+
+    return render_template("index.html", top_5_stocks=top_5_stocks, user_stock=user_stock)
+
+if __name__ == "__main__":
     app.run(debug=True)
+
 

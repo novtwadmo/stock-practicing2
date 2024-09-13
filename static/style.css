@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+#stock-table, table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#stock-table th, #stock-table td, table th, table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+.up {
+    color: red;
+}
+
+.down {
+    color: green;
+}
+
+.neutral {
+    color: black;
+}
+
+.up td, .down td {
+    font-weight: bold;
+}
+
+.up-stop {
+    background-color: red;
+    color: white;
+}
+
+.down-stop {
+    background-color: green;
+    color: white;
+}
