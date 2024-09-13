@@ -1,5 +1,5 @@
 flask
 requests
--e git+https://github.com/mlouielu/twstock#egg=twstock
+twstock
 gunicorn==20.1.0
 lxml

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -99,4 +99,27 @@
 </div>
 </body>
 
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>股票即時查詢</title>
+</head>
+<body>
+    <h1>股票即時查詢</h1>
+    <form method="POST">
+        <input type="text" name="stock_id" placeholder="輸入股票代碼">
+        <button type="submit">查詢</button>
+    </form>
+    {% if stock_data %}
+        <h2>股票名稱: {{ stock_data['info']['name'] }}</h2>
+        <p>即時股價: {{ stock_data['realtime']['latest_trade_price'] }}</p>
+        <p>開盤價: {{ stock_data['realtime']['open'] }}</p>
+        <p>最高價: {{ stock_data['realtime']['high'] }}</p>
+        <p>最低價: {{ stock_data['realtime']['low'] }}</p>
+    {% endif %}
+</body>
 </html>

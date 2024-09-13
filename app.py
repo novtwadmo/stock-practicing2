@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import datetime
+"""import datetime
 import concurrent.futures
 from flask import Flask, render_template, jsonify
-from twstock.stock import Stock
-from twstock.analytics import BestFourPoint
+import twstock
 
 app = Flask(__name__)
 
@@ -78,4 +77,21 @@ def get_stock_price(stock_id):
 
 
 if __name__ == '__main__':
+    app.run(debug=True)"""
+
+from flask import Flask, render_template, request
+import twstock
+
+app = Flask(__name__)
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    stock_data = None
+    if request.method == 'POST':
+        stock_id = request.form.get('stock_id')
+        stock_data = twstock.realtime.get(stock_id)
+    return render_template('index.html', stock_data=stock_data)
+
+if __name__ == '__main__':
     app.run(debug=True)
+
