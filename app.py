@@ -79,7 +79,7 @@ def get_stock_price(stock_id):
 if __name__ == '__main__':
     app.run(debug=True)"""
 
-from flask import Flask, render_template, request
+"""from flask import Flask, render_template, request
 import twstock
 
 app = Flask(__name__)
@@ -91,6 +91,38 @@ def index():
         stock_id = request.form.get('stock_id')
         stock_data = twstock.realtime.get(stock_id)
     return render_template('index.html', stock_data=stock_data)
+
+if __name__ == '__main__':
+    app.run(debug=True)"""
+
+from flask import Flask, render_template
+import twstock
+
+app = Flask(__name__)
+
+def get_top_10_stocks():
+    all_stocks = twstock.codes
+    stock_info = []
+    
+    for stock_id in all_stocks:
+        stock = twstock.Stock(stock_id)
+        stock.fetch_from(2024, 9)  # 取得當前月的資料
+        if stock.price and stock.capacity:
+            stock_info.append({
+                'name': stock.sid,
+                'price': stock.price[-1],
+                'volume': stock.capacity[-1],
+                'price_change': stock.change
+            })
+
+    # 根據成交量排序並取得前十支
+    sorted_stocks = sorted(stock_info, key=lambda x: x['volume'], reverse=True)[:10]
+    return sorted_stocks
+
+@app.route('/')
+def index():
+    top_10_stocks = get_top_10_stocks()
+    return render_template('index.html', stocks=top_10_stocks)
 
 if __name__ == '__main__':
     app.run(debug=True)

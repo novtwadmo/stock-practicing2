@@ -101,7 +101,7 @@
 
 </html>-->
 
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -121,5 +121,70 @@
         <p>最高價: {{ stock_data['realtime']['high'] }}</p>
         <p>最低價: {{ stock_data['realtime']['low'] }}</p>
     {% endif %}
+</body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+        }
+        table {
+            width: 80%;
+            margin: 50px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .up {
+            color: red;
+        }
+        .down {
+            color: green;
+        }
+        .limit-up {
+            background-color: red;
+            color: white;
+        }
+        .limit-down {
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Top 10 Stocks by Volume</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Stock Name</th>
+                <th>Current Price</th>
+                <th>Price Change</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stock in stocks %}
+            <tr class="{{ 'limit-up' if stock['price_change'] >= 10 else 'limit-down' if stock['price_change'] <= -10 else 'up' if stock['price_change'] > 0 else 'down' }}">
+                <td>{{ stock['name'] }}</td>
+                <td>{{ stock['price'] }}</td>
+                <td>{{ stock['price_change'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
