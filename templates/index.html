@@ -27,7 +27,7 @@
             <th>Volume</th>
         </tr>
         {% for stock in stocks %}
-        <tr class="{% if stock.is_limit_up %}limit-up{% elif stock.is_limit_down %}limit-down{% elif stock.price > stock.low %}price-up{% else %}price-down{% endif %}">
+        <tr class="{% if stock.is_limit_up %}limit-up{% elif stock.is_limit_down %}limit-down{% elif stock.price > stock.yesterday %}price-up{% else %}price-down{% endif %}">
             <td>{{ stock.name }}</td>
             <td>{{ stock.price }}</td>
             <td>{{ stock.yesterday }}</td>
