@@ -17,6 +17,8 @@ class Stock(BaseModel):
     high: str
     low: str
     volume: str
+    is_limit_up: bool
+    is_limit_down: bool
 
 # 定義接收請求數據的格式
 class StockRequest(BaseModel):
