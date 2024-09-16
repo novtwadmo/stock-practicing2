@@ -1,5 +1,3 @@
-flask
-requests
-twstock
-gunicorn==20.1.0
-lxml
+fastapi
+uvicorn
+jinja2

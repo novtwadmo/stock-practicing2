@@ -189,7 +189,7 @@
 </body>
 </html>-->
 
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -249,5 +249,46 @@
     {% endif %}
 </body>
 <script src="{{ url_for('static', filename='script.js') }}"></script>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Tracker</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: center; }
+        th { background-color: #f4f4f4; }
+        .price-up { color: red; }
+        .price-down { color: green; }
+        .limit-up { background-color: red; color: white; }
+        .limit-down { background-color: green; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Top 5 Stocks</h1>
+    <table>
+        <tr>
+            <th>Stock Name</th>
+            <th>Price</th>
+            <th>High</th>
+            <th>Low</th>
+            <th>Volume</th>
+        </tr>
+        {% for stock in stocks %}
+        <tr class="{% if stock.price == stock.high %}limit-up{% elif stock.price == stock.low %}limit-down{% elif stock.price > stock.low %}price-up{% else %}price-down{% endif %}">
+            <td>{{ stock.name }}</td>
+            <td>{{ stock.price }}</td>
+            <td>{{ stock.high }}</td>
+            <td>{{ stock.low }}</td>
+            <td>{{ stock.volume }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
 </html>
+
 
