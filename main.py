@@ -13,7 +13,7 @@ stock_data = []
 class Stock(BaseModel):
     name: str
     price: str
-    open: str
+    yesterday: str
     high: str
     low: str
     volume: str

@@ -21,7 +21,7 @@
         <tr>
             <th>Stock Name</th>
             <th>Price</th>
-            <th>Open</th>
+            <th>Yesterday Price</th>
             <th>High</th>
             <th>Low</th>
             <th>Volume</th>
@@ -30,7 +30,7 @@
         <tr class="{% if stock.is_limit_up %}limit-up{% elif stock.is_limit_down %}limit-down{% elif stock.price > stock.low %}price-up{% else %}price-down{% endif %}">
             <td>{{ stock.name }}</td>
             <td>{{ stock.price }}</td>
-            <td>{{ stock.open }}</td>
+            <td>{{ stock.yesterday }}</td>
             <td>{{ stock.high }}</td>
             <td>{{ stock.low }}</td>
             <td>{{ stock.volume }}</td>
